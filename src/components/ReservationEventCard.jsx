@@ -19,6 +19,14 @@ const ReservationEventCard = ({
 
   const location = useLocation();
   const event = location.state?.event || {}; // Fetch event data from location state
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+
+  const claimingOptions = [
+    { venue: "UST IPEA", date: "April 10, 2025", time: "7:00 AM - 9:00 AM" },
+    { venue: "UST IPEA", date: "April 10, 2025", time: "9:00 AM - 11:00 AM" },
+    { venue: "UST IPEA", date: "April 10, 2025", time: "1:00 PM - 3:00 PM" },
+    { venue: "UST IPEA", date: "April 10, 2025", time: "3:00 PM - 5:00 PM" },
+  ];
 
   // Ensure first email is always the user's email
   useEffect(() => {
@@ -46,9 +54,8 @@ const ReservationEventCard = ({
       {/* Left Column 2 - EVENT DETAILS */}
       <div className="w-1/4 pl-2">
         <h2 className="text-l font-bold mt-4">ABOUT</h2>
-        <p className="text-justify text-xs text-gray-300 mb-4">
-          {event.details ||
-            "Get ready to ignite the pride as we mark the beginning of another electrifying season of the University Athletic Association of the Philippines! UAAP Season 87 Kickoff is here to celebrate the spirit of sportsmanship, excellence, and camaraderie among the finest student-athletes from across the league."}
+        <p className="text-justify text-xs text-gray-300 mb-4 text-[15px]">
+          {event.details}
         </p>
 
         <h1 className="text-2xl font-bold">Tickets</h1>
@@ -77,9 +84,9 @@ const ReservationEventCard = ({
           <p className="text-sm mb-2">
             <strong>Event Category:</strong> {event.category || "Not Available"}
           </p>
-          <p className="text-sm mb-2">
+          {/* <p className="text-sm mb-2">
             <strong>Ticket Claiming Venue:</strong> {event.claimingVenue || "UST IPEA"}
-          </p>
+          </p> */}
         </div>
       </div>
 
@@ -181,23 +188,45 @@ const ReservationEventCard = ({
           <label className="block font-semibold">
             <u>Time of Claiming of Tickets</u>
           </label>
-          <select
-            value={timeSlot}
-            onChange={(e) => setTimeSlot(e.target.value)}
-            className="w-3/8 p-2 border rounded-xl mt-2 text-black"
-          >
-            <option value="" disabled>
-              Select your preferred time
-            </option>
-            <option>7:00 AM - 9:00 AM</option>
-            <option>9:00 AM - 11:00 AM</option>
-            <option>1:00 PM - 3:00 PM</option>
-            <option>3:00 PM - 5:00 PM</option>
-          </select>
+          <div className="relative mt-2">
+            <button
+              className="w-3/8 p-2 border rounded-xl text-black bg-white"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              {timeSlot || "Select claiming details"}
+            </button>
+            {dropdownOpen && (
+              <div className="absolute z-10 bg-white border rounded-xl mt-2 w-full max-h-20">
+                <div className="max-h-20 overflow-y-auto">
+                  <ul className="divide-y divide-gray-200">
+                    {claimingOptions.map((option, index) => (
+                      <li
+                        key={index}
+                        className="p-2 hover:bg-gray-100 cursor-pointer text-black text-sm"
+                        onClick={() => {
+                          setTimeSlot(`${option.venue}  ${option.date}  ${option.time}`);
+                          setDropdownOpen(false);
+                        }}
+                      >
+                        <div>
+                          <strong>Venue:</strong> {option.venue}
+                        </div>
+                        <div>
+                          <strong>Date:</strong> {option.date}
+                        </div>
+                        <div>
+                          <strong>Time:</strong> {option.time}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-
         {/* Add Button */}
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center mt-20"> {/* Increased margin-top */}
           <button
             onClick={handleAddReservation}
             className="w-1/2 bg-black text-[#F09C32] text-lg py-2 rounded-xl font-bold cursor-pointer transition-all transform hover:scale-105 hover:bg-black-600"

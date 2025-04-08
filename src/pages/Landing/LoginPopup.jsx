@@ -64,9 +64,11 @@ const [user, setUser] = useState(null);
      // ✅ Redirect based on user role
      if (data.user.role === "admin") {
       navigate("/admin-dashboard", { replace: true });
+    } else if (data.user.role === "support_staff") {
+      navigate("/supportstaff-dashboard", { replace: true });
     } else if (["student", "employee", "alumni"].includes(data.user.role)) {
       navigate("/home", { replace: true });
-  } 
+    }
 
       // Debugging cookies
       console.log("Stored Cookies (frontend):", document.cookie);

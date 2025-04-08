@@ -45,7 +45,11 @@ import AdminPublishEvent from "./pages/Admin/Admin_PublishEvent";
 import AdminScheduleEvent from "./pages/Admin/Admin_ScheduleEvent";
 
 // ========================== SUPPORT STAFF PAGES ==========================
-// (Add support staff routes here when available)
+import SupportStaffDashboard from "./pages/SupportStaff/SupportStaff_Dashboard";
+// import SupportStaffReservations from "./pages/SupportStaff/SupportStaff_Reservations";
+// import SupportStaffEventReports from "./pages/SupportStaff/SupportStaff_EventReports";
+// import SupportStaffUser from "./pages/SupportStaff/SupportStaff_Users";
+// import SupportStaffEventList from "./pages/SupportStaff/SupportStaff_EventList";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -117,6 +121,14 @@ function App() {
           <Route path="/audit-trails" element={<AuditTrails />} />
           <Route path="/event-report" element={<AdminEventReports />} />
           <Route path="/archive" element={<AdminArchive />} />
+
+          {/* ========================== SUPPORT STAFF PAGES =================== */}
+          <Route element={<ProtectedRoutes role="support_staff" />} />
+          <Route path="/supportstaff-dashboard" element={<SupportStaffDashboard />} />
+          {/* <Route path="/supportstaff-reservations" element={<SupportStaffReservations />} />
+          <Route path="/supportstaff-event-reports" element={<SupportStaffEventReports />} />
+          <Route path="/supportstaff-users" element={<SupportStaffUser />} />
+          <Route path="/supportstaff-event-list" element={<SupportStaffEventList />} /> */}
 
           {/* ========================== FOOTER PAGES ========================== */}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

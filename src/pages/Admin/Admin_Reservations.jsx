@@ -142,6 +142,9 @@ const Admin_Reservations = () => {
               <button className="px-4 py-2 bg-[#C15454] text-white rounded-md hover:bg-[#B83333] hover:scale-105 duration-100">
                 Restore Unclaimed
               </button>
+              <button className="px-4 py-2 bg-[#59A051] text-white rounded-md hover:bg-[#3C6F37] hover:scale-105 duration-100">
+                Mark as Claimed
+              </button>
             </div>
           </div>
         </div>
